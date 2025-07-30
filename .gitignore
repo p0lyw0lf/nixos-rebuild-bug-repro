@@ -1,0 +1,6 @@
+.direnv
+*.img
+*.iso
+*.qcow2
+*.tar
+*.tar.zst
