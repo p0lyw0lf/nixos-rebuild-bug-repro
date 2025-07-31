@@ -71,4 +71,20 @@ to run `nixos-rebuild` targeting the VM with a config that should be identical
 to what it has built fresh from just being installed. This should trigger the
 bug.
 
+What the bug looks like is output like:
+
+```
+/nix/store/wc80xdvck636v0yr74nawpy26n27z7w6-nixos-rebuild-ng-0.0.0/bin/.nixos-rebuild-wrapped: /nix/store/wc80xdvck636v0yr74nawpy26n27z7w6-nixos-rebuild-ng-0.0.0/bin/nixos-rebuild: line 3: syntax error near unexpected token `lambda'
+/nix/store/wc80xdvck636v0yr74nawpy26n27z7w6-nixos-rebuild-ng-0.0.0/bin/.nixos-rebuild-wrapped: /nix/store/wc80xdvck636v0yr74nawpy26n27z7w6-nixos-rebuild-ng-0.0.0/bin/nixos-rebuild: line 3: `import sys;import site;import functools;sys.argv[0] = '/nix/store/wc80xdvck636v0yr74nawpy26n27z7w6-nixos-rebuild-ng-0.0.0/bin/nixos-rebuild';functools.reduce(lambda k, p: site.addsitedir(p, k), ['/nix/store/wc80xdvck636v0yr74nawpy26n27z7w6-nixos-rebuild-ng-0.0.0/lib/python3.13/site-packages'], site._init_pathinfo());'
+```
+
+Inspecting these store paths manually, we find that they are for an aarch64
+environment, yet are running on an x86_64 host (somehow??), breaking
+catastrophically at some point. Inspecting the VM, we can confirm these store
+paths never make it there.
+
+I do not know why `nixos-rebuild` did a re-exec of `nixos-rebuild-ng`, nor why
+that re-exec is for entirely the wrong architecture, but I guess that's why
+it's a bug :P
+
 [1]: https://nixos.wiki/wiki/NixOS_Installation_Guide
