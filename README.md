@@ -8,6 +8,8 @@ that step on the build host instead of the target host, and also with
 These instructions will walk through getting an aarch64 VM running on an x86_64
 machine to reproduce this bug.
 
+NOTE: This is the nixos-25.05 branch, which does **NOT** reproduce this bug.
+
 ## 1. Get A aarch64 NixOS Install
 
 If you trust me, run:
@@ -70,5 +72,8 @@ just switch
 to run `nixos-rebuild` targeting the VM with a config that should be identical
 to what it has built fresh from just being installed. This should trigger the
 bug.
+
+NOTE: This is the nixos-25.05 branch, which does **NOT** trigger the bug, and
+instead proceeds with the rebuild normally.
 
 [1]: https://nixos.wiki/wiki/NixOS_Installation_Guide
