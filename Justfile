@@ -3,6 +3,9 @@ download:
   zstd -d qemu-aarch64.tar.zst && \
   tar xvf qemu-aarch64.tar
 
+reset:
+  tar xvf qemu-aarch64.tar
+
 run:
   qemu-system-aarch64 -M virt \
     -cpu max -smp 2 -m 8192 \

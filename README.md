@@ -1,8 +1,9 @@
-# Reproducing A Bug In `nixos-rebuild-ng`
+# Reproducing A Bug In `nixos-rebuild`
 
-The bug: `nixos-rebuild-ng` has trouble in the reexec step when deploying to
+The bug: `nixos-rebuild` has trouble in the reexec step when deploying to
 target hosts of a different architecture than the build host; it seems to run
-that step on the build host instead of the target host.
+that step on the build host instead of the target host, and also with
+`nixos-rebuild-ng`?
 
 These instructions will walk through getting an aarch64 VM running on an x86_64
 machine to reproduce this bug.
@@ -32,7 +33,7 @@ to generate these files fresh, download a Minimal NixOS ISO from
 <https://nixos.org/download/>, uncomment the line regarding CDs in the
 Justfile, and follow the [Installation Guide][1] in the following step.
 
-## 2. Run Your aarch64 NixOS Install
+## 2. Set Up Your aarch64 NixOS Install
 
 Use
 
@@ -48,7 +49,15 @@ something like:
 echo "ssh-ed25519 AAA..." >> /root/.ssh/authorized_keys
 ```
 
-once you're logged in. The default root password is root.
+once you're logged in, where "ssh-ed25519 AAA..." is the output of
+
+```
+cat ~/.ssh/id_ed25519.pub
+```
+
+on your host machine.
+
+The default root password inside the VM is root.
 
 ## 3. Run `nixos-rebuild`
 
