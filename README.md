@@ -87,4 +87,8 @@ I do not know why `nixos-rebuild` did a re-exec of `nixos-rebuild-ng`, nor why
 that re-exec is for entirely the wrong architecture, but I guess that's why
 it's a bug :P
 
+NOTE: fortunately, it seems this bug doesn't trigger on latest nixos-unstable,
+just the one before I ran `nix flake update`? Anyways, keeping this up for
+posterity just in case :)
+
 [1]: https://nixos.wiki/wiki/NixOS_Installation_Guide
