@@ -74,6 +74,16 @@ to what it has built fresh from just being installed. This should trigger the
 bug.
 
 NOTE: This is the nixos-25.05 branch, which does **NOT** trigger the bug, and
-instead proceeds with the rebuild normally.
+instead proceeds normally, then failing with an error like:
+
+```
+building the system configuration...
+error: a 'aarch64-linux' with features {} is required to build '/nix/store/0bwzzs15n5n6xki5wmx2383hlalmmj9j-perl-5.40.0-env.drv', but I am a 'x86_64-linux' with features {benchmark, big-parallel, kvm, nixos-test}
+
+       Hint: the failing derivation has allowSubstitutes set to false, forcing it to be built rather than substituted.
+       Passing --always-allow-substitutes to force substitution may resolve this failure if the path is available in a substituter.
+```
+
+correctly detecting that it can't build something.
 
 [1]: https://nixos.wiki/wiki/NixOS_Installation_Guide
