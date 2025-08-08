@@ -1,3 +1,6 @@
+switch:
+  nixos-rebuild switch --flake .#qemu-aarch64 --target-host localhost-qemu
+
 download:
   curl -SL https://static.wolfgirl.dev/2025-07-29/qemu-aarch64.tar.zst -o qemu-aarch64.tar.zst && \
   zstd -d qemu-aarch64.tar.zst && \
@@ -18,6 +21,3 @@ run:
     -drive if=pflash,format=raw,file=varstore.img \
     -drive if=virtio,format=qcow2,file=qemu.qcow2 \
     # -device virtio-scsi-pci,id=scsi0 -device scsi-cd,drive=cd,bootindex=0 -drive if=none,id=cd,file=nixos-minimal-aarch64-linux.iso
-
-switch:
-  nixos-rebuild switch --flake .#qemu-aarch64 --target-host localhost-qemu
